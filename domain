@@ -1,1 +1,234 @@
+# T-Solver v5：自主工业设计体领域模型
 
+## 1. 定位
+
+T-Solver v5 从“人使用 AI 做光机设计”的工具形态，升级为“AI 在人类边界内自主发明光机”的工业设计体。系统不再只接收参数并输出设计，而是接收目标、约束与偏好，持续生成、仿真、验证、沉淀并进化光机结构。
+
+## 2. v4 到 v5 的跃迁
+
+| 维度 | v4：AI 设计系统 | v5：自主工业设计体 |
+| --- | --- | --- |
+| 系统性质 | 设计工具 | 自主设计体 |
+| 设计方式 | 生成 + 优化 | 持续进化 + 自发创新 |
+| 人类角色 | 输入需求 | 设定目标边界与安全边界 |
+| 知识来源 | 数据 + 工程规则 | 实验反馈 + 自学习 + 设计基因 |
+| 能力边界 | 已知空间搜索 | 未知结构探索与结构规律发现 |
+
+## 3. 总体架构
+
+```text
+T-Solver v5 (Autonomous Industrial Design System)
+│
+├── Intent Engine                  # 意图驱动系统
+├── Physics World Model             # 物理世界模型
+├── Autonomous Architecture Generator# 自主结构生成器
+├── Self-Evolving Simulation World  # 自进化仿真世界
+├── Discovery Engine                # 结构发现引擎
+├── Manufacturing Intelligence      # 制造智能
+├── Closed-Loop Factory Feedback    # 工厂闭环反馈
+└── Knowledge Genome System         # 设计基因库
+```
+
+## 4. Intent Engine：从参数输入到目标空间
+
+Intent Engine 将自然语言或业务目标转化为可计算的设计目标空间，而不是直接转化为单一设计方案。
+
+### 输入
+
+- 目标：例如低成本、三年稳定运行、特定市场、特定亮度或噪音目标。
+- 约束：例如散热方案限制、材料限制、供应链限制、模具成本限制。
+- 偏好：例如牺牲一定体积换取可靠性、优先低 BOM 成本、优先制造良率。
+
+### 输出
+
+- 设计目标空间。
+- 可行性边界。
+- 风险边界。
+- 进化路径。
+
+```python
+class IntentEngine:
+    def interpret(self, intent: str) -> "DesignSpec":
+        """Convert human intent into objectives, constraints, preferences, and guardrails."""
+        return DesignSpec.from_intent(intent)
+```
+
+## 5. Physics World Model：可演化的物理世界
+
+Physics World Model 是 v5 的核心。它不是一次性仿真器，而是可长期运行、可积累历史误差、可通过实验反馈自我修正的物理世界模型。
+
+### 物理域
+
+```text
+W = {optics, thermal, fluid, material, aging, tolerance}
+```
+
+### 能力要求
+
+- 光、热、流体、材料、老化和公差的联合建模。
+- 支持长期演化状态，而不是只计算单点结果。
+- 记录仿真误差与真实测试误差。
+- 从工厂测试和失效数据中校准物理规律。
+
+```python
+class PhysicsWorld:
+    def __init__(self):
+        self.material_laws = {}
+        self.thermal_laws = {}
+        self.fluid_laws = {}
+        self.optical_laws = {}
+        self.aging_laws = {}
+
+    def evolve(self, design, state, noise):
+        """Advance the coupled physical world by one evolution step."""
+        return simulate_all_fields(design, state, noise)
+```
+
+## 6. Autonomous Architecture Generator：自主结构生成
+
+v5 不只是在已有模板中搜索，而是将光机结构表示为可变异、可重组、可验证的图结构，生成从未显式存在过的候选结构。
+
+### 图结构表达
+
+```text
+node = heat_source | inlet | outlet | LCD | lens | fan | heat_sink | shell | duct
+edge = heat_flow | air_flow | light_path | mechanical_constraint | cost_dependency
+```
+
+### 生成机制
+
+- 拓扑生成：将风道、热路和光路作为网络结构生成。
+- 图重写：通过局部规则变异结构。
+- 交叉重组：组合历史成功结构的设计基因。
+- 安全过滤：剔除违反光学、热学、制造或法规边界的候选。
+
+```python
+def mutate_structure(graph):
+    candidate = apply_random_graph_rewrite(graph)
+    return reject_if_violates_guardrails(candidate)
+```
+
+## 7. Self-Evolving Simulation World：自进化仿真世界
+
+v4 的模式是“设计 → 仿真 → 输出”，v5 的模式是“世界 → 自运行 → 自演化”。系统持续运行候选结构，在时间维度上观察热场、风场、材料老化与可靠性变化。
+
+```text
+S(t + 1) = f(S(t), Design(t), Noise, FactoryFeedback(t))
+```
+
+### 输出
+
+- 多时间尺度可靠性评估。
+- 热场与风场的动态演化轨迹。
+- 材料老化与性能衰减趋势。
+- 设计在噪声、灰尘、湿热、装配偏差下的鲁棒性。
+
+## 8. Discovery Engine：从优化到发现
+
+Discovery Engine 的目标不是只找到最优解，而是从大量仿真、实验和失败案例中发现新的结构规律。
+
+### 发现对象
+
+- 新型风道规律。
+- 新型热路径组合。
+- 低成本材料组合规律。
+- 光路、热路和结构件之间的耦合规律。
+- 失败模式与可制造性之间的隐藏关系。
+
+### 示例输出
+
+```text
+Discovery: asymmetric duct + dual recirculation path reduces peak LCD temperature
+under low-cost fan constraints, but requires ribs near outlet to keep injection stability.
+```
+
+## 9. Manufacturing Intelligence：制造智能
+
+Manufacturing Intelligence 将工厂现实约束纳入生成、仿真和选择流程，使系统生成的不是“理论上能工作”的设计，而是“能量产、能控成本、能稳定交付”的设计。
+
+### 约束输入
+
+- 注塑拔模角、壁厚、缩水、筋位和模具寿命。
+- SMT 工艺、装配顺序、测试工装和返修路径。
+- 公差链、供应链价格、替代料风险和良率模型。
+- 区域市场环境，例如高温、高湿、灰尘和电网波动。
+
+### 输出
+
+- 可量产性判断。
+- 成本与良率预测。
+- 工艺风险清单。
+- 必须调整的结构区域。
+
+## 10. Closed-Loop Factory Feedback：工厂闭环
+
+工厂闭环是 v5 的护城河。生产、测试、老化、返修和客诉数据会回流系统，持续校准物理世界模型、制造智能和设计基因库。
+
+```text
+design -> pilot run -> production -> test -> failure analysis -> model update -> new generation
+```
+
+```python
+def factory_feedback(data, world_model, genome):
+    world_model.update_from_failure(data)
+    genome.record_failure_pattern(data)
+    return recalibrate_design_rules(world_model, genome)
+```
+
+## 11. Knowledge Genome System：设计基因库
+
+Knowledge Genome System 将每个设计编码为可继承、可变异、可交叉的设计基因，使设计经验不再散落在个人经验、文档或孤立项目中。
+
+### 基因编码
+
+```text
+gene = [air_duct_topology][thermal_path][optical_path][material_stack][cost_model][factory_result]
+```
+
+### 进化机制
+
+- 继承：复用已验证结构规律。
+- 变异：在安全边界内生成结构变化。
+- 交叉：组合多个成功设计的子结构。
+- 淘汰：基于仿真、试产和售后失败淘汰低适应度基因。
+
+```python
+def crossover(gene_a, gene_b):
+    child = recombine_structures(gene_a, gene_b)
+    return score_adaptability(child)
+```
+
+## 12. 端到端运行流程
+
+```python
+def autonomous_design(intent):
+    spec = intent_engine.interpret(intent)
+    topology_space = architecture_generator.generate_space(spec)
+    population = genome.seed_population(topology_space)
+
+    for epoch in range(spec.evolution_budget):
+        candidates = architecture_generator.evolve(population, spec)
+        simulated = simulation_world.run(candidates)
+        manufacturable = manufacturing_intelligence.evaluate(simulated)
+        insights = discovery_engine.discover(manufacturable)
+        genome.update(candidates, manufacturable, insights)
+        population = genome.select_next_generation(candidates)
+
+    best = genome.select_best(spec)
+    return best, insights, genome.explain_lineage(best)
+```
+
+## 13. 工业级能力边界
+
+v5 应具备以下能力：
+
+- 自主生成光机结构。
+- 自发现工程规律。
+- 自适应工厂约束。
+- 自我进化设计能力。
+- 自动沉淀设计经验。
+- 让人类从“指定参数”转为“设定目标、约束和安全边界”。
+
+## 14. 终局判断
+
+T-Solver v5 不是单一软件模块，而是光机设计生态系统。它通过意图驱动、物理世界、自主生成、仿真进化、结构发现、制造闭环和设计基因库，把光机设计从“工具辅助的人类工程活动”推进到“可持续演化的工业智能体”。
